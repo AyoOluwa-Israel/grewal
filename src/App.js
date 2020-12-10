@@ -5,7 +5,7 @@ import Home from './components/UI/Home'
 
 const App = () => {
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
 
@@ -13,6 +13,11 @@ const App = () => {
     authListener();
     
   })
+
+  const clearInput = () => {
+    setEmail('');
+    setPassword('');
+  }
 
   const handleLogin = () => {
     
@@ -42,9 +47,10 @@ const App = () => {
   const authListener = () => {
     firebase.auth().onAuthStateChanged((user) => {
       if(user){
-        setUser({user});
+        clearInput();
+        setUser(user);
       }else{
-        setUser(user)
+        setUser('')
       }
     })
   }
